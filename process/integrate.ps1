@@ -116,14 +116,14 @@ try {
        $objItem = $htItems[$strItem]
     
         $item_attributes = $objItem.ItemAttributes() -join "|"
-        $sw.writeline($item_attributes + '|Afp Pct|' + ($objItem.AfpPercentArray() -join "|"))
-        $sw.writeline($item_attributes + '|Fcst|' + ($objItem.arFcst -join "|"))
-        $sw.writeline($item_attributes + '|OpenOrd|' + ($objItem.arOpenOrd -join "|"))
-        $sw.writeline($item_attributes + '|NonStdOrders|' + ($objItem.arOpenOrdNonStd -join "|"))
-        $sw.writeline($item_attributes + '|Final Demand|' + ($objItem.FinalDemandArray() -join "|"))
-        $sw.writeline($item_attributes + '|PlnProd|' + ($objItem.arPlnProd -join "|"))
-        $sw.writeline($item_attributes + '|EndInv|' + ($objItem.EndInventoryArray() -join "|"))
-        $sw.writeline($item_attributes + '|Weeks Supply|' + ($objItem.WoSArray() -join "|"))
+        $sw.writeline($item_attributes + '|1-Afp Pct|' + ($objItem.AfpPercentArray() -join "|"))
+        $sw.writeline($item_attributes + '|2-Fcst|' + ($objItem.arFcst -join "|"))
+        $sw.writeline($item_attributes + '|3-OpenOrd|' + ($objItem.arOpenOrd -join "|"))
+        $sw.writeline($item_attributes + '|4-NonStdOrders|' + ($objItem.arOpenOrdNonStd -join "|"))
+        $sw.writeline($item_attributes + '|5-Final Demand|' + ($objItem.FinalDemandArray() -join "|"))
+        $sw.writeline($item_attributes + '|6-PlnProd|' + ($objItem.arPlnProd -join "|"))
+        $sw.writeline($item_attributes + '|7-EndInv|' + ($objItem.EndInventoryArray() -join "|"))
+        $sw.writeline($item_attributes + '|8-Weeks Supply|' + ($objItem.WoSArray() -join "|"))
 
         $ct++;if($ct % 100 -eq 0){"$ct items processed."}  
    }
