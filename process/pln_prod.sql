@@ -1,0 +1,20 @@
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+
+SELECT ITEM,[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19],[20],[21],[22],[23],[24],[25],[26],[27],[28],[29],[30],[31],[32],[33],[34],[35],[36],[37],[38],[39],[40],[41],[42],[43],[44],[45],[46],[47],[48],[49],[50],[51],[52]
+FROM (
+	SELECT pp.ITEM,c.RELATIVE_WK+1 as REL_WK,QTY_SCHED
+	FROM PLANNED_PRODUCTION pp 
+  JOIN ITEM itm ON itm.ITEM=pp.ITEM
+	JOIN CALENDAR c ON c.YEAR=pp.YEAR and c.WEEK_NO=pp.WEEK AND c.IS_WEEKENDING = 'Y'
+	WHERE 
+    c.RELATIVE_WK >= 0 AND 
+    QTY_SCHED > 0 AND 
+    ITEM_GRP IN(301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,389,390)
+  
+) t
+PIVOT (
+	SUM(QTY_SCHED)
+	FOR REL_WK IN([1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19],[20],[21],[22],[23],[24],[25],[26],[27],[28],[29],[30],[31],[32],[33],[34],[35],[36],[37],[38],[39],[40],[41],[42],[43],[44],[45],[46],[47],[48],[49],[50],[51],[52])
+) pvt
+ORDER BY ITEM
