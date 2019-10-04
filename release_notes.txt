@@ -1,0 +1,2 @@
+2019-10-04
+We have added lines for "NonStdOrders" and "Final Demand".  NonStdOrders contains open orders of order type 195 or 650.  Because these orders are generally unforecasted, we add them to existing forecast, rather than consuming forecast with them.  The processing logic makes an exception for ROSS.  ROSS orders of type 195 are included in their normal open orders demand stream.

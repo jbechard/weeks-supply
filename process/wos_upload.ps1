@@ -25,9 +25,9 @@ $sql_create_staging_table = @"
 "@
 
 $sql_merge_into_final = @"
-    DELETE jim.WEEKS_SUPPLY_DEV WHERE EXTRACT_DT >= CAST(GETDATE() AS DATE);
+    DELETE dbo.WEEKS_SUPPLY WHERE EXTRACT_DT >= CAST(GETDATE() AS DATE);
     
-    INSERT jim.WEEKS_SUPPLY_DEV (
+    INSERT dbo.WEEKS_SUPPLY (
        ITEM
       ,DESCR
       ,SC
