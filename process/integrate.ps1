@@ -1,3 +1,9 @@
+function Get-objItem {
+    process {
+        If ( -Not $htItems.ContainsKey($_) ) {$htItems[$_] = [clsItem]::new($_)}
+        $htItems[$_]
+    }
+}
 
 
 $htItems = @{}
@@ -9,140 +15,77 @@ $sw = new-object system.IO.StreamWriter($OutputFile)
 
 
 #Import Total Season Forecast.
-$file = '..\data\tot_seas_fcst.csv' 
-gc $file | foreach -process {
+gc '..\data\tot_seas_fcst.csv' | foreach -process {
     $ar = $_.Split(',')
-    $strItem = $ar[0].Trim()
-    If ( $htItems.ContainsKey($strItem) ) {
-        $objItem = $htItems[$strItem]
-    } else {
-        $objItem = [clsItem]::new($strItem)
-        $htItems[$strItem] = $objItem 
-    }
-    $objItem.TotSeasFcst = $ar[1]
+    ($ar[0].Trim() | Get-objItem).TotSeasFcst = $ar[1]
 }
 Write-Host 'Imported Total Season Forecast.'
 
 #Import AFP.
-$file = '..\data\afp.csv' 
-gc $file | foreach -process {
+gc '..\data\afp.csv' | foreach -process {
     $ar = $_.Split(',')
-    $strItem = $ar[0].Trim()
-    If ( $htItems.ContainsKey($strItem) ) {
-        $objItem = $htItems[$strItem]
-    } else {
-        $objItem = [clsItem]::new($strItem)
-        $htItems[$strItem] = $objItem 
-    }
-    $objItem.Afp = $ar[1]
+    ($ar[0].Trim() | Get-objItem).Afp = $ar[1]
 }
 Write-Host 'Imported AFP.'
 
 #Import Prior AFP.
-$file = '..\data\afp_prior.csv' 
-gc $file | foreach -process {
+gc '..\data\afp_prior.csv' | foreach -process {
     $ar = $_.Split(',')
-    $strItem = $ar[0].Trim()
-    If ( $htItems.ContainsKey($strItem) ) {
-        $objItem = $htItems[$strItem]
-    } else {
-        $objItem = [clsItem]::new($strItem)
-        $htItems[$strItem] = $objItem 
-    }
-    $objItem.PriorAfp = $ar[1]
+    ($ar[0].Trim() | Get-objItem).PriorAfp = $ar[1]
 }
 Write-Host 'Imported Prior AFP.'
 
 #Import On Hand.
-$file = '..\data\oh.csv' 
-gc $file | foreach -process {
+gc '..\data\oh.csv' | foreach -process {
     $ar = $_.Split(',')
-    $strItem = $ar[0].Trim()
-    If ( $htItems.ContainsKey($strItem) ) {
-        $objItem = $htItems[$strItem]
-    } else {
-        $objItem = [clsItem]::new($strItem)
-        $htItems[$strItem] = $objItem 
-    }
-    $objItem.OnHand = $ar[1]
+    ($ar[0].Trim() | Get-objItem).OnHand = $ar[1]
 }
 Write-Host 'Imported On Hand.'
 
 #Import Produced to Date.
-$file = '..\data\ptd.csv' 
-gc $file | foreach -process {
+gc '..\data\ptd.csv' | foreach -process {
     $ar = $_.Split(',')
-    $strItem = $ar[0].Trim()
-    If ( $htItems.ContainsKey($strItem) ) {
-        $objItem = $htItems[$strItem]
-    } else {
-        $objItem = [clsItem]::new($strItem)
-        $htItems[$strItem] = $objItem 
-    }
-    $objItem.Ptd = $ar[1]
+    ($ar[0].Trim() | Get-objItem).Ptd = $ar[1]
 }
 Write-Host 'Imported PTD.'
 
 #Import Forecast.
-$file = '..\data\fcst.csv' 
-gc $file | foreach -process {
+gc '..\data\fcst.csv' | foreach -process {
     $ar = $_.Split(',')
-    $strItem = $ar[0].Trim()
-    If ( $htItems.ContainsKey($strItem) ) {
-        $objItem = $htItems[$strItem]
-    } else {
-        $objItem = [clsItem]::new($strItem)
-        $htItems[$strItem] = $objItem 
-    }
-    $objItem.arFcst = $ar[1..52]
+    ($ar[0].Trim() | Get-objItem).arFcst = $ar[1..52]
 }
 Write-Host 'Imported Forecast.'
 
 #Import Production.
-$file = '..\data\prod.csv' 
-gc $file | foreach -process {
+gc '..\data\prod.csv' | foreach -process {
     $ar = $_.Split(',')
-    $strItem = $ar[0].Trim()
-    If ( $htItems.ContainsKey($strItem) ) {
-        $objItem = $htItems[$strItem]
-    } else {
-        $objItem = [clsItem]::new($strItem)
-        $htItems[$strItem] = $objItem 
-    }
-    $objItem.arPlnProd = $ar[1..52]
+    ($ar[0].Trim() | Get-objItem).arPlnProd = $ar[1..52]
 }
 Write-Host 'Imported Production.'
 
 #Import Open Orders.
-$file = '..\data\oo.csv' 
-gc $file | foreach -process {
+gc '..\data\oo.csv' | foreach -process {
     $ar = $_.Split(',')
-    $strItem = $ar[0].Trim()
-    If ( $htItems.ContainsKey($strItem) ) {
-        $objItem = $htItems[$strItem]
-    } else {
-        $objItem = [clsItem]::new($strItem)
-        $htItems[$strItem] = $objItem 
-    }
-    $objItem.arOpenOrd = $ar[1..52]
+    ($ar[0].Trim() | Get-objItem).arOpenOrd = $ar[1..52]
 }
 Write-Host 'Imported Open Orders.'
 
-#Import Item Class.
-$file = '..\data\item_class.csv' 
-gc $file | foreach -process {
+#Import Non-Standard Open Orders.
+gc '..\data\oo_non_std.csv' | foreach -process {
     $ar = $_.Split(',')
-    $strItem = $ar[0].Trim()
-    If ( $htItems.ContainsKey($strItem) ) {
-        $objItem = $htItems[$strItem]
-        $objItem.ItemClass = $ar[1].Trim()
-    } 
+    ($ar[0].Trim() | Get-objItem).arOpenOrdNonStd = $ar[1..52]
+}
+Write-Host 'Imported Non-Standard Open Orders.'
+
+#Import Item Class.
+gc '..\data\item_class.csv' | foreach -process {
+    $ar = $_.Split(',')
+    If ( $htItems.ContainsKey($ar[0].Trim()) ) { $htItems[$ar[0].Trim()].ItemClass = $ar[1].Trim() } 
 }
 Write-Host 'Imported Item Class.'
 
 #Import Item Master Data.
-$file = '..\data\item.csv' 
-gc $file | foreach -process {
+gc '..\data\item.csv' | foreach -process {
     $ar = $_.Split(',')
     $strItem = $ar[0].Trim()
     If ( $htItems.ContainsKey($strItem) ) {
@@ -176,11 +119,13 @@ try {
         $sw.writeline($item_attributes + '|Afp Pct|' + ($objItem.AfpPercentArray() -join "|"))
         $sw.writeline($item_attributes + '|Fcst|' + ($objItem.arFcst -join "|"))
         $sw.writeline($item_attributes + '|OpenOrd|' + ($objItem.arOpenOrd -join "|"))
+        $sw.writeline($item_attributes + '|NonStdOrders|' + ($objItem.arOpenOrdNonStd -join "|"))
+        $sw.writeline($item_attributes + '|Final Demand|' + ($objItem.FinalDemandArray() -join "|"))
         $sw.writeline($item_attributes + '|PlnProd|' + ($objItem.arPlnProd -join "|"))
         $sw.writeline($item_attributes + '|EndInv|' + ($objItem.EndInventoryArray() -join "|"))
         $sw.writeline($item_attributes + '|Weeks Supply|' + ($objItem.WoSArray() -join "|"))
 
-        $ct++;if($ct % 100 -eq 0){"$ct items processed."}    
+        $ct++;if($ct % 100 -eq 0){"$ct items processed."}  
    }
 }
 finally {
@@ -206,6 +151,7 @@ Class clsItem {
     [long] $TotSeasFcst
     [array] $arFcst
     [array] $arOpenOrd
+    [array] $arOpenOrdNonStd
     [array] $arPlnProd
    
 
@@ -215,6 +161,7 @@ Class clsItem {
         $this.Item = $item
         for ($i = 1; $i -le 52; $i++) {$this.arFcst += @($null)}
         for ($i = 1; $i -le 52; $i++) {$this.arOpenOrd += @($null)}
+        for ($i = 1; $i -le 52; $i++) {$this.arOpenOrdNonStd += @($null)}
         for ($i = 1; $i -le 52; $i++) {$this.arPlnProd += @($null)}
     }
 
@@ -226,34 +173,31 @@ Class clsItem {
     [array] ItemAttributes()
     {
         return @(
-            $this.Item,
-            $this.Descr,
-            $this.Sc,
-            $this.SigCd,
-            $this.ItemGrp,
-            $this.Planner,
-            $this.CsPack,
-            $this.DfltWkCtr,
-            $this.CrossShip,
-            $this.CountryOfSale,
-            $this.ItemClass,
-            $this.Afp,
-            $this.AfpChg(),
-            $this.Ptd,
-            $this.OnHand,
-            $this.TotSeasFcst
+            $this.Item,$this.Descr,$this.Sc,$this.SigCd,$this.ItemGrp,$this.Planner,$this.CsPack,
+            $this.DfltWkCtr,$this.CrossShip,$this.CountryOfSale,$this.ItemClass,$this.Afp,$this.AfpChg(),
+            $this.Ptd,$this.OnHand,$this.TotSeasFcst
         )
     }
     
     [double] AfpChg() {return $($this.Afp - $this.PriorAfp)}
+    
+    [array] FinalDemandArray()
+    {
+        return $(
+            foreach ($wk in @(0..51)) {
+                [int32]$this.arFcst[$wk] + [int32]$this.arOpenOrdNonStd[$wk]
+            }
+        )
+    }
        
     [array] EndInventoryArray()
     {
+        $arFcst_NonStdOrders = $this.FinalDemandArray()
         return $(
-            $endinv = $this.OnHand + $this.arPlnProd[0] - $this.arFcst[0]
+            $endinv = $this.OnHand + $this.arPlnProd[0] - $arFcst_NonStdOrders[0]
             foreach ($wk in @(1..51)) {
                 $endinv
-                $endinv = $endinv + $this.arPlnProd[$wk] - $this.arFcst[$wk]
+                $endinv = $endinv + $this.arPlnProd[$wk] - $arFcst_NonStdOrders[$wk]
             }
         )
     }
@@ -261,23 +205,21 @@ Class clsItem {
     [array] CumProductionArray()
     {
         $cumProd = $this.Ptd
-        #return $(for ($wk=0;$wk -le 51;$wk++) {$cumProd += $this.arPlnProd[$wk]; $cumProd})
-        
         return $($this.arPlnProd | %{$cumProd += $_; $cumProd})
-        
     }
     
     [array] WoSArray()
     {
+        $arFcst_NonStdOrders = $this.FinalDemandArray()
         $arEndInv = $this.EndInventoryArray()
         return $(
             for ($wk=0;$wk -le 51;$wk++) {
                 $cumFcst = 0;$wos = 0
                 for ($fcst_wk=$wk+1;$fcst_wk -le 51;$fcst_wk++) {
-                    $cumFcst += $this.arFcst[$fcst_wk]
+                    $cumFcst += $arFcst_NonStdOrders[$fcst_wk]
                     if ($cumFcst -lt $arEndInv[$wk]) {$wos++}
                 }
-                if ( ($wos -eq 0) -and (($this.arFcst[($wk+1)..51] -gt 0).length -eq 0) ){-1} else {$wos}
+                if ( ($wos -eq 0) -and (($arFcst_NonStdOrders[($wk+1)..51] -gt 0).length -eq 0) ){-1} else {$wos}
             }
         )
     }
