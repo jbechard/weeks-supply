@@ -31,7 +31,7 @@ pushd %~dp0
 
     ECHO.
     ECHO EXTRACTING OPEN ORDERS...
-    sqlcmd -S giasv013 -d SupplyChainPlanning -i oo.sql -o tmp.csv -s, -h -1
+    sqlplus /nolog @oo.sql
     powershell -ExecutionPolicy Bypass -Command "(gc tmp.csv) -replace 'NULL','' -replace ' ','' | Out-File -encoding ASCII ..\data\oo.csv"
 
     ECHO.
