@@ -3,6 +3,8 @@
 pushd %~dp0
 
 (
+    ECHO %DATE% %TIME%
+
     ECHO.
     ECHO EXTRACTING ITEM MASTER DATA...
     sqlcmd -S giasv013 -d SupplyChainPlanning -i item.sql -o tmp.csv -s, -h -1
