@@ -1,4 +1,5 @@
 @ECHO OFF
+SETLOCAL EnableDelayedExpansion
 
 pushd %~dp0
 
@@ -86,7 +87,7 @@ pushd %~dp0
     ECHO SCRIPT COMPLETE!
     for /F "tokens=2-4 delims=/ " %%G IN ("%date%") do (set _dt=%%G/%%H/%%I)
     for /F "tokens=1 delims=." %%G IN ("%time%") do (set _tm=%%G)
-    ECHO %_dt% %_tm%, Weeks of Supply, COMPLETED SUCCESSFULLY >> "\\kcmsv001\groups\Production\Data Analysis\Master_Report_Log.log"
+    ECHO %_dt%%_tm%, Weeks of Supply, COMPLETED SUCCESSFULLY >> "\\kcmsv001\groups\Production\Data Analysis\Master_Report_Log.log"
 ) > wos.log
 
 
