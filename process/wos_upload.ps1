@@ -71,7 +71,9 @@ $sql_merge_into_final = @"
     FROM etl.WEEKS_SUPPLY
 "@
 
-$source_file = "\\kcmsv001\groups\Production\Data Analysis\Weeks of Supply\data\wos_data.csv"
+$script_dir = split-path (split-path -path $MyInvocation.MyCommand.Path -parent) -parent
+
+$source_file = join-path -path $script_dir\data -childpath wos_data.csv
 $field_delim = "|"
 $has_hdr_row = 1 # 1=True; 0=False
 $destination_server = "giasv013" 
