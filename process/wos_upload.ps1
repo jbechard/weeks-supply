@@ -25,8 +25,10 @@ $sql_create_staging_table = @"
 "@
 
 $sql_merge_into_final = @"
+    SET NOCOUNT ON;
     DELETE dbo.WEEKS_SUPPLY WHERE EXTRACT_DT >= CAST(GETDATE() AS DATE);
     
+    SET NOCOUNT OFF;
     INSERT dbo.WEEKS_SUPPLY (
        ITEM
       ,DESCR
