@@ -39,18 +39,21 @@ function main {
 	popd
 	
 	# Conditionally run WoS and send email notification.
-	if ($script:err_ct = 0) {
+	if ($script:err_ct -eq 0) {
 		# Run Weeks of Supply.
 		pushd c:\repos\weeks-supply\process
 		try{.\REFRESH_WOS_DATA.bat              ;""}   catch{Handle-Error}
 		popd
 	}
-	if ($script:err_ct = 0) {
+    else {"Week of Supply data was NOT refreshed."}
+	if ($script:err_ct -eq 0) {
 		# Send email notification.
 		$to = 'James.Bechard@rstover.com','PRODPL@rstover.com','DemandPlanning@rstover.com'
 		send-mailmessage -To $to -Subject "Weeks of Supply Data is READY" -SmtpServer 'email.rstover.com' -From 'james.bechard@rstover.com'
 	}
+    else {"Week of Supply email was NOT sent."}
 	
+    "$script:err_ct errors encountered."
     "";"Ended at $(get-date -Format 'yyyy-MM-dd hh:mm:ss')."
 }   
 
