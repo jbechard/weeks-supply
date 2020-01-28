@@ -5,7 +5,7 @@ $err_ct = 0
 function main {
     "Started at $(get-date -Format 'yyyy-MM-dd hh:mm:ss').";""
 	
-	pushd C:\repos\supplychainplanning-etl\master-wos.ps1
+	pushd C:\repos\supplychainplanning-etl
     
 	# Update shipments and open orders in SupplyChainPlanning.
     try{  .\delivery_header.ps1             ;""}   catch{Handle-Error}
