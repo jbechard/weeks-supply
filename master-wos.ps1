@@ -35,7 +35,7 @@ function main {
 	
 	# Calculate AFP in SeasFcst.
 	pushd C:\repos\seasfcst-daily-maint
-	try{.\calc-afp-qty.ps1  		        ;""}   catch{Handle-Error}
+	try{.\calc_afp_qty.ps1  		        ;""}   catch{Handle-Error}
 	popd
 	
 	# Conditionally run WoS and send email notification.
