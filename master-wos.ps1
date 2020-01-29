@@ -85,5 +85,5 @@ function Handle-Error {
 function log_dt {get-date -Format 'MM/dd/yyyy hh:mm:ss'}
     
 main | out-file -FilePath '.\master-wos.log' -encoding ascii
-$script_name = '\SupplyChainPlanning\etl\master.ps1'
+$script_name = '\\kcmsv007\..\master-wos.ps1'
 "$(log_dt), $script_name, COMPLETED with $err_ct errors." | out-file -FilePath $master_log -Append -encoding ascii
