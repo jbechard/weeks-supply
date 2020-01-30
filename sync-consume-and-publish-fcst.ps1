@@ -1,22 +1,30 @@
 Set-Location $PSScriptRoot
-$script_name = '\\kcmsv007\..\master-wos.ps1'
+$script_name = '\\kcmsv007\..\sync-consume-and-publish-fcst.ps1'
 $master_log = '\\kcmsv001\groups\Production\Data Analysis\Master_Report_Log.log'
-$local_log = '.\master-wos.log'
+$local_log = '.\sync-consume-and-publish-fcst.log'
 $err_ct = 0
-    
+
+	
 function main {
     "Started at $(get-date -Format 'yyyy-MM-dd hh:mm:ss').";""
 	
-	pushd c:\repos\weeks-supply\process
-    
-    try{  
-		.\refresh-orders-and-shipments.ps1 
-		.\sync-consume-and-publish-fcst.ps1
-		.\run-weeks-supply.ps1
-	}
+	pushd C:\repos\supplychainplanning-etl
+    	
+	try{  
+	# Update Prescient demand and SeasFcst demand; sync SeasFcst with Presc; consume Reg item forecast; refresh RSC_FCST_EXTRACT.
+		.\run-presc-group-13.bat ;""
+		.\run-presc-group-14.bat ;""
+		.\run-presc-group-22.bat ;""
+		.\run-presc-group-15.bat ;""
+	# Update other tables in SupplyChainPlanning.
+		.\forecast.ps1
+		.\tot_seas_fcst_snapshot.ps1
+	} 
 	catch{Handle-Error}
-    
-	"$script:err_ct errors encountered."
+	
+	popd
+		
+    "$script:err_ct errors encountered."
     "";"Ended at $(get-date -Format 'yyyy-MM-dd hh:mm:ss')."
 }   
 
