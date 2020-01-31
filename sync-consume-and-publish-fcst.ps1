@@ -16,6 +16,7 @@ function main {
 		.\run-presc-group-14.bat ;""
 		.\run-presc-group-22.bat ;""
 		.\run-presc-group-15.bat ;""
+        .\run-presc-group-31.bat ;""
 	# Update other tables in SupplyChainPlanning.
 		.\forecast.ps1
 		.\tot_seas_fcst_snapshot.ps1
