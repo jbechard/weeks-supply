@@ -7,10 +7,10 @@ $err_ct = 0
 function main {
     "Started at $(get-date -Format 'yyyy-MM-dd hh:mm:ss').";""
 	
-	pushd c:\repos\weeks-supply\process
+	pushd c:\repos\weeks-supply
     
     try{  
-		.\refresh-orders-and-shipments.ps1 
+		.\refresh-orders-and-shipments.ps1
 		.\sync-consume-and-publish-fcst.ps1
 		.\run-weeks-supply.ps1
 	}
@@ -18,6 +18,7 @@ function main {
     
 	"$script:err_ct errors encountered."
     "";"Ended at $(get-date -Format 'yyyy-MM-dd hh:mm:ss')."
+		
 }   
 
 function Handle-Error {
