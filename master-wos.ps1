@@ -6,6 +6,7 @@ $err_ct = 0
     
 function main {
     "Started at $(get-date -Format 'yyyy-MM-dd hh:mm:ss').";""
+    "Started in $pwd."
 	
 	pushd c:\repos\weeks-supply
     
