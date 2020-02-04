@@ -50,8 +50,7 @@ function Handle-Error {
     $script:err_ct += 1
     
     # Write error to script host.
-    $err_msg = "$($error[0].ToString()) `n $($error[0].invocationinfo.positionmessage)"
-    write-host $err_msg
+	foreach ($err in $error) {write-host "`n $($err.ToString()) `n $($err.invocationinfo.positionmessage)"}        
     
     # Send email notification.
     $script = $(split-path $error[0].exception.errorrecord.invocationinfo.scriptname -leaf)
