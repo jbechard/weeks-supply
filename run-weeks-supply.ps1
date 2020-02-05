@@ -72,5 +72,7 @@ function Handle-Error {
 
 function log_dt {get-date -Format 'MM/dd/yyyy hh:mm:ss'}
     
-main | out-file -FilePath $local_log -encoding ascii
+# main | out-file -FilePath $local_log -encoding ascii
+main
+gc "C:\repos\weeks-supply\process\wos.log"
 "$(log_dt), $script_name, COMPLETED with $err_ct errors." | out-file -FilePath $master_log -Append -encoding ascii
